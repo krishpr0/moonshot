@@ -3,6 +3,7 @@
 
 #define RXD2 4
 #define TXD2 2
+#define SBUS_BUFFER_SIZE 25
 
 
 uint8_t _rcs_buf[25] {};
@@ -19,7 +20,8 @@ int elevatorPWMChannel = 2;
 int throttlePWMChannel = 3;
 int rudderPWMChannel = 4;
 
-void SetServoPos(float precent, int pwmChannel ) {
+
+void SetServoPos(float percent, int pwmChannel ) {
   
     uint32_t duty = map(percent, 0, 100, 3276.8, 6553.6);
 
@@ -48,7 +50,7 @@ void loop() {
     size_t numBytesRead = Serial2.readBytes(_rcs_buf, SBUS_BUFFER_SIZE);
     if (numBytesRead > 0) {
         
-        crsf_parse(&_rcs_buf[0], SBUS_BUFFER_SIZE, &_raw_rc_values[0], &_raw_rc_count, RC_INPUT_MAX_CHANNELS);
+        crsf_parse(&_rcs_buf[0], SBUS_BUFFER_SIZE, &_raw_rc_values[0], &raw_rc_count, RC_INPUT_MAX_CHANNELS);
         Serial.print("Channel 1:");
         Serial.print(_raw_rc_values[0]);
         Serial.print("\tChannel 2: ");
