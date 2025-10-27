@@ -24,6 +24,5 @@ class PID {
             }
 
             void reset() {integral_ = 0; prev_error_ = 0;}
+            void setGains(float kp, float ki, float kd ) {kp_ = kp; ki_ = ki; kd_ = kd;}
         };
-        
-}
